@@ -3,7 +3,7 @@ public class RMath {
         //calculate Normal to Sphere at Intersection
         //calculate reflection vector
         
-        
+        return null;
     }
     
     

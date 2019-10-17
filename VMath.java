@@ -32,7 +32,9 @@ public class VMath {
         for(double d : v1) {
             powsum += Math.pow(d,2);
         }
-        
-        return null;
+        return Math.sqrt(powsum);
+    }
+    public static double normalize(double[] v1) {
+        return 0;
     }
 }

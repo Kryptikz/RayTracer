@@ -20,4 +20,9 @@ public class Sphere {
             center[1]+=amount;
         }
     }
+    public Vector normalToPoint(double[] outside) {
+        Vector v = new Vector(center,outside);
+        v.normalize();
+        return v;
+    }
 }
