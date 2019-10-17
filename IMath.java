@@ -1,5 +1,5 @@
 public class IMath {
-    public static boolean RaySphere(Vector v, Sphere s) {
+    public static boolean RaySphereHit(Vector v, Sphere s) {
          double[] C = s.getCenter();
          double[] A = v.getA();
          double[] B = v.getB();
@@ -13,5 +13,9 @@ public class IMath {
          } else {
              return true;
          }
+    }
+    public static double[] RaySpherePoint(Vector v, Sphere s) {
+        return null;
+        
     }
 }
