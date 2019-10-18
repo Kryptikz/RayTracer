@@ -27,4 +27,18 @@ public class VMath {
         double[] ret = new double[]{s1,s2,s3};
         return null;
     }
+    public static Vector multiplyScalar(Vector v, double d) {
+        double[] start = v.getA();
+        double[] newend = new double[start.length];
+        double[] end = v.getB(); 
+        for(int i=0;i<start.length;i++) {
+            newend[i] = ((end[i]-start[i])*d)+start[i];
+        }
+        double[] newstart = new double[start.length];
+        for(int i=0;i<start.length;i++) {
+            newstart[i]=start[i];
+        }
+        Vector ret = new Vector(newstart,newend);
+        return ret;
+    }
 }

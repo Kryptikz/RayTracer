@@ -28,8 +28,17 @@ public class IMath {
         }
         double num = (-b)-(Math.sqrt(discriminant));
         double t = 0;
-        //Vector v = new Vector(
-        return C;
-        
+        if (num > 0) {
+            t=num/(2*a);
+        } else {
+            num = (-b)+(Math.sqrt(discriminant));   
+            if (num > 0) {
+                t=num/(2*a);
+            } else {
+                return new double[0];
+            }
+        }
+        double[] collision = v.getCollisionPointFromT(t);
+        return collision;
     }
 }
