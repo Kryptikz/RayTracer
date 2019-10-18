@@ -27,14 +27,4 @@ public class VMath {
         double[] ret = new double[]{s1,s2,s3};
         return null;
     }
-    public static double magnitude(double[] v1) {
-        double powsum = 0;
-        for(double d : v1) {
-            powsum += Math.pow(d,2);
-        }
-        return Math.sqrt(powsum);
-    }
-    public static double normalize(double[] v1) {
-        return 0;
-    }
 }

@@ -25,6 +25,15 @@ public class Vector {
         }
         return Math.sqrt(powsum);
     }
+    public double[] getCollisionPointFromT(double t) {
+        double[] point = new double[A.length];
+        double mag = this.magnitude();
+        for(int i=0;i<A.length;i++) {
+           point[i] = ((B[i]-A[i])/(mag/t))+A[i]; //this works if the function is not normalized
+           //point[i] = ((B[i]-A[i])*t)+A[i]; //only works with a normalized function
+        }
+        return point;
+    }
     public void print() {
         System.out.print("(");
         int inc=0;
@@ -47,6 +56,5 @@ public class Vector {
             inc++;
         }
         System.out.print(")\n");
-        
     }
 }
