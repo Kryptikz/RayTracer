@@ -1,9 +1,17 @@
+import java.awt.Color;
 public class Sphere {
     double[] center;
     double rad;
+    Color color;
     public Sphere(double[] center, double rad) {
-        this.center=center;
-        this.rad=rad;
+        this.center = center;
+        this.rad = rad;
+        color = new Color((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255));
+    }
+    public Sphere(double[] center, double rad, Color color) {
+        this.center = center;
+        this.rad = rad;
+        this.color = color;
     }
     public double[] getCenter() {
         return center;
@@ -22,7 +30,13 @@ public class Sphere {
     }
     public Vector normalToPoint(double[] outside) {
         Vector v = new Vector(center,outside);
-        v.normalize();
+        //v.normalize();
         return v;
+    }
+    public Color getColor() {
+        return color;
+    }
+    public int[] getColorInt() {
+        return new int[]{color.getRed(),color.getGreen(),color.getBlue()};
     }
 }

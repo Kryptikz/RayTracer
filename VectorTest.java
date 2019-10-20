@@ -9,4 +9,18 @@ public class VectorTest {
         }
         v.print();
     }
+    public static void testReflect() {
+        double[] origin = new double[2];
+        double[] rayd = new double[]{-1,-1};
+        Vector ray = new Vector(origin,rayd);
+        double[] normald = new double[]{1,0};
+        Vector normal = new Vector(origin,normald);
+        Vector reflected = RMath.reflectRayOverNormal(ray, normal, new double[2]);
+        System.out.println("Ray:");
+        ray.print();
+        System.out.println("Normal:");
+        normal.print();
+        System.out.println("Reflected:");
+        reflected.print();
+    }
 }

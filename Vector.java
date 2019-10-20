@@ -18,7 +18,23 @@ public class Vector {
             B[i]=((B[i]-A[i])/mag)+A[i];
         }
     }
+    public Vector getNormalized() {
+        double[] a = VMath.clone(A);
+        double[] b = VMath.clone(B);
+        Vector cloned = new Vector(a,b);
+        cloned.normalize();
+        return cloned;
+    }
+    public Vector getNormalizedAtZero() {
+        double[] a = new double[3];
+        double[] b = VMath.subtract(B,A);
+        return (new Vector(a,b)).getNormalized();
+    }
     public double magnitude() {
+        if (A.length != B.length) {
+            this.print();
+            return 0;
+        }
         double powsum = 0;
         for(int i=0;i<A.length;i++) {
             powsum += Math.pow(B[i]-A[i],2);

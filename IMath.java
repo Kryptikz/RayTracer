@@ -11,6 +11,13 @@ public class IMath {
         if (discriminant < 0) {
             return false; 
         } else {
+            double num = (-b)-(Math.sqrt(discriminant)); 
+            if (num <= 0) {
+                num = (-b)+(Math.sqrt(discriminant));  
+                if (num <= 0) {
+                    return false;
+                }
+            }
             return true;
         }
     }
@@ -38,6 +45,7 @@ public class IMath {
                 return new double[0];
             }
         }
+        //System.out.println("t: " + t);
         double[] collision = v.getCollisionPointFromT(t);
         return collision;
     }
