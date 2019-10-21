@@ -15,9 +15,12 @@ public class SphereTest {
         d.setVisible(true);
         Sphere s1 = new Sphere(new double[]{-2.1,0,10},2);
         Sphere s2 = new Sphere(new double[]{2.1,0,6},2);
+        Sphere light = new Sphere(new double[]{0,2.1,8},1.5);
         Sphere sun = new Sphere(new double[]{5,5,11},5,Color.WHITE);
         d.addSphere(s1);
         d.addSphere(s2);
+        //d.addSphere(light);
+        //d.addLight(light);
         //d.addSphere(sun); 
         d.addSphere(sun);
         d.frame();
@@ -32,5 +35,7 @@ public class SphereTest {
                 e.printStackTrace();
             }
         }
+        d.addLight(light);
+        d.frame();
     }
 }

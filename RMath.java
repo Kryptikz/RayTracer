@@ -21,7 +21,7 @@ public class RMath {
     }
     public static int[] traceRay(Vector ray, ArrayList<Sphere> world, ArrayList<Sphere> lights, int traces, int[] last, Sphere lasts) {
         //returns int[] which contains RGB values
-        if (traces == 5){
+        if (traces == 3){
             return last;
         }
         for(Sphere s : world) {
@@ -45,7 +45,6 @@ public class RMath {
                 for(Sphere s2 : world) {
                     if (IMath.RaySphereHit(lightRay, s2)) {
                         intersect = true;
-                        System.out.println("Collision occured with light");
                         return new int[]{255,255,255};
                     }
                 }
