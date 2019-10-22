@@ -44,13 +44,15 @@ public class RMath {
                 boolean intersect = false;
                 for(Sphere s2 : world) {
                     if (IMath.RaySphereHit(lightRay, s2)) {
-                        System.out.println("successful reflection on light");
+                        //System.out.println("successful reflection on light");
                         intersect = true;
-                        double brightness = (VMath.distance(lightRay.getA(), s2.getCenter()));
-                        System.out.println(brightness);
-                        int value = (int)(brightness*255); 
-                        return new int[]{value,value,value};
+                        
                     }
+                }
+                if (!intersect) {
+                    double brightness = (1)/Math.pow(1000000*(VMath.distance(ray.getA(), light.getCenter())),2);
+                    int value = (int)(brightness*255); 
+                    return new int[]{value,value,value};
                 }
             }
         }
