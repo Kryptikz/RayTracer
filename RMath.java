@@ -4,8 +4,6 @@ public class RMath {
     public static Vector sphereReflect(Vector ray, Sphere s) {
         double[] collision = IMath.RaySpherePoint(ray,s);
         Vector normal = s.normalToPoint(collision);
-        //normal.print();
-        //System.out.println(IMath.RaySphereHit(ray, s));
         Vector ret = reflectRayOverNormal(ray,normal,collision);
         return ret;
     }
@@ -19,7 +17,7 @@ public class RMath {
         Vector ret = new Vector(start,end);
         return ret;
     }
-    public static int[] traceRay(Vector ray, ArrayList<Sphere> world, ArrayList<Sphere> lights, int traces, int[] last, Sphere lasts) {
+    public static int[] traceRay(Vector ray, ArrayList<Sphere> world, ArrayList<PointLight> lights, int traces, int[] last, Sphere lasts) {
         //returns int[] which contains RGB values
         if (traces == 10){
             return last;
@@ -27,32 +25,24 @@ public class RMath {
         for(Sphere s : world) {
             if (IMath.RaySphereHit(ray, s) && lasts != s) {
                 Vector reflect = sphereReflect(ray,s);
-                /*if (lasts != s && !VMath.equals(last, new int[3])) {
-                    System.out.print("this color: ");
-                    VMath.print(s.getColorInt());
-                    System.out.print("last color: ");
-                    VMath.print(last);
-                }*/
                 return VMath.average(s.getColorInt(),traceRay(reflect,world,lights,traces+1,s.getColorInt(),s));
             }
         }
         if (traces != 0) {
-            for(Sphere light : lights) {
+            for(PointLight light : lights) {
                 double[] lcenter = light.getCenter();
                 double[] raycenter = ray.getA();
                 Vector lightRay = new Vector(lcenter,raycenter);
                 boolean intersect = false;
                 for(Sphere s2 : world) {
                     if (IMath.RaySphereHit(lightRay, s2)) {
-                        //System.out.println("successful reflection on light");
                         intersect = true;
-                        
+                        break;
                     }
                 }
                 if (!intersect) {
-                    double brightness = (1)/Math.pow(1000000*(VMath.distance(ray.getA(), light.getCenter())),2);
-                    int value = (int)(brightness*255); 
-                    return new int[]{value,value,value};
+                    double distance = VMath.distance(ray.getA(),light.getCenter());
+                    return light.getValueAtDist(distance);
                 }
             }
         }

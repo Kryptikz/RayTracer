@@ -3,14 +3,14 @@ import java.awt.*;
 import javax.swing.*;
 public class Display extends JComponent {
     ArrayList<Sphere> spheres;
-    ArrayList<Sphere> lights;
+    ArrayList<PointLight> lights;
     int width;
     int height;
     double[] camerapos;
     double[] camerarot;
     public Display(int width, int height) {
         spheres = new ArrayList<Sphere>();
-        lights = new ArrayList<Sphere>();
+        lights = new ArrayList<PointLight>();
         camerapos = new double[3];
         camerarot = new double[3];
         this.width = width;
@@ -19,7 +19,7 @@ public class Display extends JComponent {
     public void addSphere(Sphere s) {
         spheres.add(s);
     }
-    public void addLight(Sphere s) {
+    public void addLight(PointLight s) {
         lights.add(s);
     }
     public void frame() {
@@ -35,6 +35,15 @@ public class Display extends JComponent {
                 
                 Vector ray = new Vector(camerapos,new double[]{x,y,1});
                 int[] pixelval = RMath.traceRay(ray, spheres, lights, 0, new int[3],null);
+                if (pixelval[0]>255) {
+                    pixelval[0]=255;
+                }
+                if (pixelval[1]>255) {
+                    pixelval[1]=255;
+                }
+                if (pixelval[2]>255) {
+                    pixelval[2]=255;
+                }
                 Color pixelcolor = new Color(pixelval[0],pixelval[1],pixelval[2]);
                 g.setColor(pixelcolor);
                 g.fillRect(c,r,1,1);
