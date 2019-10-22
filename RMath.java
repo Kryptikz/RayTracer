@@ -48,4 +48,22 @@ public class RMath {
         }
         return new int[3];
     }
+    public static int[] traceRayLight(Vector ray, ArrayList<Sphere> world, ArrayList<PointLight> lights, int traces, int[] last, Sphere lasts) {
+        if (traces == 10) {
+            return last;
+        }
+        for(Sphere s : world) {
+            if (IMath.RaySphereHit(ray,s) && lasts != s) {
+                Vector reflect = sphereReflect(ray,s);
+                for(PointLight light : lights) {
+                    double[] lcenter = light.getCenter();
+                    double[] raycenter = ray.getA();
+                    Vector lightRay = new Vector(lcenter,raycenter);
+                    boolean intersect = false;
+                    //get total(sum) of all lights on each bounce of the ray, then return this as a list, which is temporarily stores in int[] last
+                }
+            }
+        }
+        return null;
+    }
 }
