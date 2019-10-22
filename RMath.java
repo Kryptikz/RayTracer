@@ -21,7 +21,7 @@ public class RMath {
     }
     public static int[] traceRay(Vector ray, ArrayList<Sphere> world, ArrayList<Sphere> lights, int traces, int[] last, Sphere lasts) {
         //returns int[] which contains RGB values
-        if (traces == 3){
+        if (traces == 10){
             return last;
         }
         for(Sphere s : world) {
@@ -44,8 +44,12 @@ public class RMath {
                 boolean intersect = false;
                 for(Sphere s2 : world) {
                     if (IMath.RaySphereHit(lightRay, s2)) {
+                        System.out.println("successful reflection on light");
                         intersect = true;
-                        return new int[]{255,255,255};
+                        double brightness = (VMath.distance(lightRay.getA(), s2.getCenter()));
+                        System.out.println(brightness);
+                        int value = (int)(brightness*255); 
+                        return new int[]{value,value,value};
                     }
                 }
             }
