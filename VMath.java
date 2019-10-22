@@ -13,6 +13,13 @@ public class VMath {
         }
         return ret;
     }
+    public static int[] add(int[] v1, int[] v2) {
+        int[] ret = new int[v1.length];
+        for(int i=0;i<ret.length;i++) {
+            ret[i]=v1[i]+v2[i];
+        }
+        return ret;
+    }
     public static double dotProd(double[] v1, double[] v2) {
         double sum=0;
         for(int i=0;i<v1.length;i++) {

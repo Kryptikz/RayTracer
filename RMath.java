@@ -18,8 +18,7 @@ public class RMath {
         return ret;
     }
     public static int[] traceRay(Vector ray, ArrayList<Sphere> world, ArrayList<PointLight> lights, int traces, int[] last, Sphere lasts) {
-        //returns int[] which contains RGB values
-        if (traces == 10){
+        if (traces == 5){
             return last;
         }
         for(Sphere s : world) {
@@ -28,42 +27,35 @@ public class RMath {
                 return VMath.average(s.getColorInt(),traceRay(reflect,world,lights,traces+1,s.getColorInt(),s));
             }
         }
-        if (traces != 0) {
-            for(PointLight light : lights) {
-                double[] lcenter = light.getCenter();
-                double[] raycenter = ray.getA();
-                Vector lightRay = new Vector(lcenter,raycenter);
-                boolean intersect = false;
-                for(Sphere s2 : world) {
-                    if (IMath.RaySphereHit(lightRay, s2)) {
-                        intersect = true;
-                        break;
-                    }
-                }
-                if (!intersect) {
-                    double distance = VMath.distance(ray.getA(),light.getCenter());
-                    return light.getValueAtDist(distance);
-                }
-            }
-        }
         return new int[3];
     }
-    public static int[] traceRayLight(Vector ray, ArrayList<Sphere> world, ArrayList<PointLight> lights, int traces, int[] last, Sphere lasts) {
-        if (traces == 10) {
+    public static double[] traceRayLight(Vector ray, ArrayList<Sphere> world, ArrayList<PointLight> lights, int traces, double[] last, Sphere lasts) {
+        if (traces == 5) {
             return last;
         }
         for(Sphere s : world) {
             if (IMath.RaySphereHit(ray,s) && lasts != s) {
                 Vector reflect = sphereReflect(ray,s);
+                double[] lightValue = new double[3];
                 for(PointLight light : lights) {
                     double[] lcenter = light.getCenter();
-                    double[] raycenter = ray.getA();
+                    double[] raycenter = reflect.getA();
                     Vector lightRay = new Vector(lcenter,raycenter);
                     boolean intersect = false;
-                    //get total(sum) of all lights on each bounce of the ray, then return this as a list, which is temporarily stores in int[] last
+                    for(Sphere s2 : world) {
+                        if (IMath.RaySphereHit(lightRay, s2)) {
+                            intersect = true;
+                            break;
+                        }
+                    }
+                    if (!intersect) {
+                        double distance = VMath.distance(reflect.getA(),light.getCenter());
+                        lightValue = VMath.add(lightValue, light.getValueAtDist(distance));
+                    }
                 }
+                return VMath.add(lightValue,traceRayLight(reflect,world,lights,traces+1,lightValue,s));
             }
         }
-        return null;
+        return new double[3];
     }
 }

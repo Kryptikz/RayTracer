@@ -46,13 +46,14 @@ public class PointLight {
     public int[] getColorInt() {
         return new int[]{color.getRed(),color.getGreen(),color.getBlue()};
     }
-    public int[] getValueAtDist(double dist) {
+    public double[] getValueAtDist(double dist) {
         double brightness = (intensity)/Math.pow((falloff*dist),2);
-        int val = (int)((brightness*255)+.5);
+        //int val = (int)((brightness*255)+.5);
+        double val = brightness*255;
         /*if (val > 255) {
             val = 255;
         }*/
-        int[] ret = new int[]{val,val,val};
+        double[] ret = new double[]{val,val,val};
         return ret;
     }
 }

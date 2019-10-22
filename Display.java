@@ -33,6 +33,8 @@ public class Display extends JComponent {
     }
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D)g;
+        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         for(int r=0;r<height;r++) {
             for(int c=0;c<width;c++) {
                 double x = ((double)r/(double)height)-.5;
@@ -41,6 +43,11 @@ public class Display extends JComponent {
                 
                 Vector ray = new Vector(camerapos,new double[]{x,y,1});
                 int[] pixelval = RMath.traceRay(ray, spheres, lights, 0, new int[3],null);
+                double[] lightval = RMath.traceRayLight(ray, spheres, lights, 0, new double[3],null);
+                pixelval[0] *= (lightval[0]/255);
+                pixelval[1] *= (lightval[1]/255);
+                pixelval[2] *= (lightval[2]/255);
+                
                 if (pixelval[0]>255) {
                     pixelval[0]=255;
                 }
@@ -51,8 +58,8 @@ public class Display extends JComponent {
                     pixelval[2]=255;
                 }
                 Color pixelcolor = new Color(pixelval[0],pixelval[1],pixelval[2]);
-                g.setColor(pixelcolor);
-                g.fillRect(c,r,1,1);
+                g2d.setColor(pixelcolor);
+                g2d.fillRect(c,r,1,1);
             }
         }
     }
